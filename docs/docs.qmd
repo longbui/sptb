@@ -1,0 +1,102 @@
+---
+title: Using Conditional Autoregression to Model Tuberculosis Dynamics in Ca Mau Province 
+execute:
+  echo: false
+subtitle: A Short Subtitle
+author:
+  - name: Viet Long Bui 
+    email: viet.bui1@monash.edu
+    affiliations: 
+        - SPHPM, Monash University
+    attributes:
+        corresponding: true
+  - name: Romain Ragonnet
+    email: romain.ragonnet@monash.edu
+    affiliations:
+        - SPHPM, Monash Univeristy
+  - name: Gregory Fox
+    email: greg.fox@sydney.edu.au
+    affiliations:
+        - University of Sydney, Sydney
+  - name: James M. Trauder
+    email: james.trauer@monash.edu
+    affilations:
+        - SPHPM, Monash University
+abstract: |
+  This is the abstract. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum augue turpis, dictum non malesuada a, volutpat eget velit. Nam placerat turpis purus, eu tristique ex tincidunt et. Mauris sed augue eget turpis ultrices tincidunt. Sed et mi in leo porta egestas. Aliquam non laoreet velit. Nunc quis ex vitae eros aliquet auctor nec ac libero. Duis laoreet sapien eu mi luctus, in bibendum leo molestie. Sed hendrerit diam diam, ac dapibus nisl volutpat vitae. Aliquam bibendum varius libero, eu efficitur justo rutrum at. Sed at tempus elit.
+keywords: 
+  - keyword1
+  - keyword2
+date: last-modified
+bibliography: bibliography.bib
+format:
+  elsevier-pdf:
+    keep-tex: true
+    journal:
+      name: Journal Name
+      formatting: preprint
+      model: 3p
+      cite-style: super
+---
+
+Please make sure that your manuscript follows the guidelines in the Guide for Authors of the relevant journal. It is not necessary to typeset your manuscript in exactly the same way as an article, unless you are submitting to a camera-ready copy (CRC) journal.
+
+For detailed instructions regarding the elsevier article class, see <https://www.elsevier.com/authors/policies-and-guidelines/latex-instructions>
+
+# Bibliography styles
+
+Here are two sample references: @Feynman1963118 @Dirac1953888.
+
+By default, natbib will be used with the `authoryear` style, set in `classoption` variable in YAML. You can sets extra options with `natbiboptions` variable in YAML header. Example
+
+```         
+natbiboptions: longnamesfirst,angle,semicolon
+```
+
+There are various more specific bibliography styles available at <https://support.stmdocs.in/wiki/index.php?title=Model-wise_bibliographic_style_files>. To use one of these, add it in the header using, for example, `biblio-style: model1-num-names`.
+
+## Using CSL
+
+If `cite-method` is set to `citeproc` in `elsevier_article()`, then pandoc is used for citations instead of `natbib`. In this case, the `csl` option is used to format the references. By default, this template will provide an appropriate style, but alternative `csl` files are available from <https://www.zotero.org/styles?q=elsevier>. These can be downloaded and stored locally, or the url can be used as in the example header.
+
+# Equations
+
+Here is an equation: $$ 
+  f_{X}(x) = \left(\frac{\alpha}{\beta}\right)
+  \left(\frac{x}{\beta}\right)^{\alpha-1}
+  e^{-\left(\frac{x}{\beta}\right)^{\alpha}}; 
+  \alpha,\beta,x > 0 .
+$$
+
+Inline equations work as well: $\sum_{i = 2}^\infty\{\alpha_i^\beta\}$
+
+# Figures and tables
+
+```{python}
+#| label: camap_map
+#| fig-cap: A meaningless scatterplot
+#| fig-align: center
+#| out-width: 50%
+import geopandas as gpd
+import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
+import seaborn as sns
+sns.set_style("white")
+fig, ax = plt.subplots(1, 1, figsize=(12, 7))
+cpath = '../data/map/cm_commune.json'
+cmap = gpd.read_file(cpath)
+dpath = '../data/map/cm_district.json'
+dmap = gpd.read_file(dpath)
+cmap.plot(ax=ax, color='lightblue', edgecolor='black', linewidth=0.8, alpha=0.7)
+dmap.plot(ax=ax, color='none', edgecolor='red', linewidth=1.5, alpha=0.7)
+ax.set_title('Communes and Districts in Ca Mau, Vietnam', fontsize=16, fontweight='bold')
+ax.tick_params(axis='both', which='major', labelsize=12)
+ax.xaxis.set_major_locator(ticker.MaxNLocator(nbins=5))
+ax.yaxis.set_major_locator(ticker.MaxNLocator(nbins=5))
+
+plt.show()
+```
+
+# Tables coming from R
+
+# References {.unnumbered}
