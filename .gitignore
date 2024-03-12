@@ -5,4 +5,9 @@ outputs/
 *ipynb_checkpoints*
 *.egg-info
 .vscode/
+<<<<<<< HEAD
 analysis_files/*
+=======
+*.pdf
+*.toml
+>>>>>>> 2ec7932034e3489d3fa8da6ea53da34369747efb
