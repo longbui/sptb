@@ -1,0 +1,39 @@
+---
+title: "Supplemental material"
+format: pdf
+---
+
+# Analysis of Spatial Autocorrelation
+
+## Moran's I Statistic
+
+Spatial autocorrelation refers to the correlation of a variable with itself through space. To quantify this on a global scale, we employ Moran's I statistic, a measure that evaluates whether the observed spatial pattern is clustered, dispersed, or random. The Moran's I is defined as:
+
+$$
+I = \frac{N}{W} \frac{\sum_{i=1}^{N}\sum_{j=1}^{N} w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{\sum_{i=1}^{N}(x_i - \bar{x})^2}
+$$
+
+where:
+
+- $N$ is the number of spatial units indexed by $i$ and $j$,
+- $x_i$ and $x_j$ are the observations at locations $i$ and $j$,
+- $\bar{x}$ is the mean of all observations,
+- $w_{ij}$ is the spatial weight between locations $i$ and $j$, and
+- $W$ is the sum of all spatial weights, $\sum_{i=1}^{N}\sum_{j=1}^{N} w_{ij}$.
+
+A positive Moran's I indicates clustering of similar values, while a negative value suggests dispersion.
+
+## Local Indicators of Spatial Association (LISA)
+
+To detect and visualize localized patterns of spatial association, we turn to LISA, which allows for the identification of clusters (hot spots) and outliers. The general form of LISA for an observation at location $i$ is given by:
+
+$$
+I_i = \frac{(x_i - \bar{x})}{s^2} \sum_{j=1}^{N} w_{ij}(x_j - \bar{x})
+$$
+
+where $s^2$ is the variance of the observations. This local statistic is critical for identifying areas where the local pattern of spatial association is significantly different from the global pattern indicated by Moran's I.
+
+## Significance and Applications
+
+Both Moran's I and LISA statistics serve as foundational tools in spatial analysis, enabling researchers to detect and interpret patterns of spatial autocorrelation in diverse fields such as epidemiology, environmental science, and urban planning. By identifying areas of significant spatial clustering or dispersion, policymakers and scientists can better target interventions and understand the spatial dynamics of various phenomena.
+
