@@ -1,39 +1,73 @@
 ---
-title: "Supplemental material"
+title: "Bayesian Spatio-Temporal Analysis of Tuberculosis Notification Dynamics in Nam Dinh, Vietnam: A Small Area Approach"
 format: pdf
 ---
 
-# Analysis of Spatial Autocorrelation
+# Spatial Analysis of TB Notification Rates
 
-## Moran's I Statistic
+## Spatial Autocorrelation
 
-Spatial autocorrelation refers to the correlation of a variable with itself through space. To quantify this on a global scale, we employ Moran's I statistic, a measure that evaluates whether the observed spatial pattern is clustered, dispersed, or random. The Moran's I is defined as:
+Spatial autocorrelation is a statistical measure that evaluates the degree to which similar values are located near each other in geographic space. It helps us understand if high or low values of a variable (e.g., TB notification rates) cluster together in a pattern that is different from what would be expected if the underlying spatial processes were random.
+
+### Expected TB Cases Calculation
+
+The expected TB cases for each area in a year, denoted as $E_{i,j}$, can be calculated using the following formula:
 
 $$
-I = \frac{N}{W} \frac{\sum_{i=1}^{N}\sum_{j=1}^{N} w_{ij}(x_i - \bar{x})(x_j - \bar{x})}{\sum_{i=1}^{N}(x_i - \bar{x})^2}
+E_{i,j} = P_{i,j} \times \frac{\sum_{i=1}^{226} O_{j}}{\sum_{i=1}^{226} P_{j}}
 $$
 
-where:
+Where:
+- $E_{i,j}$ signifies the expected number of TB cases in the ith area for year j.
+- $P_{i,j}$ represents the population in the ith area for year j.
+- $\sum_{i=1}^{226} O_{j}$ denotes the total observed TB cases across all areas for year j.
+- $\sum_{i=1}^{226} P_{j}$ is the total population across all areas for year j.
+- `i` ranges from 1 to 226, corresponding to the individual communes.
+- `j` ranges from 2012 to 2021, covering the years of the study.
 
-- $N$ is the number of spatial units indexed by $i$ and $j$,
-- $x_i$ and $x_j$ are the observations at locations $i$ and $j$,
-- $\bar{x}$ is the mean of all observations,
-- $w_{ij}$ is the spatial weight between locations $i$ and $j$, and
-- $W$ is the sum of all spatial weights, $\sum_{i=1}^{N}\sum_{j=1}^{N} w_{ij}$.
+The spatial Standardized Mortality Risk (SMR) is calculated as:
+
+$$
+SMR_{i,j} = \frac{O_{i,j}}{E_{i,j}}
+$$
+
+## Moran’s I Statistic
+
+The Global Moran’s I statistic is defined as:
+
+$$
+I = \frac{N}{W} \sum_{i=1}^{N}\sum_{j=1}^{N} w_{ij} \frac{(x_i - \bar{x})(x_j - \bar{x})}{\sum_{i=1}^{N}(x_i - \bar{x})^2}
+$$
+
+Where:
+- `N` is the number of spatial units indexed by i and j.
+- $x_i$ and $x_j$ are the observations at locations i and j.
+- $\bar{x}$ is the mean of all observations.
+- $w_{ij}$ is the spatial weight between locations i and j.
+- `W` is the sum of all spatial weights, $\sum_{i=1}^{N}\sum_{j=1}^{N} w_{ij}$.
 
 A positive Moran's I indicates clustering of similar values, while a negative value suggests dispersion.
 
+### Interpretation of Moran's I and p-values
+
+A positive Moran's I value indicates that regions with similar TB rates are clustered together, while a negative value suggests that high and low rates are interspersed, indicating dispersion. The Moran's I statistic is typically accompanied by a p-value, which assesses the significance of the autocorrelation observed:
+
+- **p-value < 0.05**: Indicates that the observed spatial pattern is statistically significant, meaning there is less than a 5% likelihood that this pattern could be due to random chance. This suggests that the clustering or dispersion is a real feature of the data.
+- **p-value >= 0.05**: Suggests that the spatial pattern could be random, meaning the observed clustering or dispersion might not be statistically significant.
+
 ## Local Indicators of Spatial Association (LISA)
 
-To detect and visualize localized patterns of spatial association, we turn to LISA, which allows for the identification of clusters (hot spots) and outliers. The general form of LISA for an observation at location $i$ is given by:
+LISA statistics identify local clusters and spatial outliers. The categories of clusters are:
+
+- **High-High (HH)**: An area with high TB rates surrounded by areas with similarly high rates. This indicates a hotspot.
+- **Low-Low (LL)**: An area with low TB rates surrounded by areas with similarly low rates. This is often referred to as a cold spot.
+- **High-Low (HL)**: An area with high TB rates surrounded by areas with low rates. This suggests an outlier where the area significantly differs from its neighbors.
+- **Low-High (LH)**: An area with low TB rates surrounded by areas with high rates. This also indicates an outlier, contrasting sharply with surrounding areas.
+
+The LISA for a location i is given by:
 
 $$
-I_i = \frac{(x_i - \bar{x})}{s^2} \sum_{j=1}^{N} w_{ij}(x_j - \bar{x})
+I_i = \frac{(x_i - \bar{x})^2}{s^2} \sum_{j=1}^{N} w_{ij} (x_j - \bar{x})
 $$
 
-where $s^2$ is the variance of the observations. This local statistic is critical for identifying areas where the local pattern of spatial association is significantly different from the global pattern indicated by Moran's I.
-
-## Significance and Applications
-
-Both Moran's I and LISA statistics serve as foundational tools in spatial analysis, enabling researchers to detect and interpret patterns of spatial autocorrelation in diverse fields such as epidemiology, environmental science, and urban planning. By identifying areas of significant spatial clustering or dispersion, policymakers and scientists can better target interventions and understand the spatial dynamics of various phenomena.
-
+Where `s^2` is the variance of the observations. These local statistics are crucial for identifying areas where the pattern of spatial association is significantly different from the global pattern indicated by Moran’s I.
